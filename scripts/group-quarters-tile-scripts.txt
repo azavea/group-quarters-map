@@ -1,0 +1,15 @@
+## generate tiles from output of data-processing.py 
+tippecanoe -o bl2020-v6.mbtiles -l blocks --no-tile-compression --drop-densest-as-needed -z15 --generate-ids --extend-zooms-if-still-dropping --attribute-type=P5_001N,P5_002N,P5_003N,P5_004N,P5_005N,P5_006N,P5_007N,P5_008N,P5_009N,P5_010N:int merge-source-2020.geojson
+
+../map-tiles/mbutil/mb-util --image_format=pbf bl2020-v6.mbtiles ./tiles-v6/
+
+#scripts for reference
+## making ndjson, handled in data-processing.py
+
+ndjson-cat PA-sample.txt | ndjson-split | ndjson-map '{id: d[10] + d[11] + d[12] + d[13], P5_001N: d[0],P5_002N:d[1],P5_003N:d[2],P5_004N:d[3],P5_005N:d[4],P5_006N:d[5],P5_007N:d[6],P5_008N:d[7],P5_009N:d[8],P5_010N:d[9]}' > PA-sample-mapped.ndjson
+
+## Census API call URLs 
+
+https://api.census.gov/data/2010/dec/sf1?get=P042002,NAME&for=block:*&in=state:42%20county:045
+
+https://api.census.gov/data/2020/dec/pl?get=P5_002N&for=block:*&in=state:42%20county:045

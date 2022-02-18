@@ -1,0 +1,201 @@
+#!/bin/bash
+
+PROJECT_DIR="$(dirname $(dirname $(realpath $0)) )"
+# Path to data input directory
+INPUT_DIR="$PROJECT_DIR/data/input"
+# Path to data output directory
+OUTPUT_DIR="$PROJECT_DIR/data/_output"
+# Path to mbtiles output
+MBTILES_DIR="$OUTPUT_DIR/mbtiles"
+# Path to final tiles output
+TILES_DIR="$OUTPUT_DIR/tiles"
+
+rm -r $OUTPUT_DIR
+mkdir $OUTPUT_DIR $MBTILES_DIR
+
+cat $INPUT_DIR/ne_populated_places_clipped_us_0.geojson | \
+  dirty-reproject --forward albersUsa > \
+  $OUTPUT_DIR/ne_populated_places_clipped_us_0_albersusa.geojson
+
+cat $INPUT_DIR/ne_populated_places_clipped_us_1.geojson | \
+  dirty-reproject --forward albersUsa > \
+  $OUTPUT_DIR/ne_populated_places_clipped_us_1_albersusa.geojson
+
+cat $INPUT_DIR/ne_populated_places_clipped_us_2.geojson | \
+  dirty-reproject --forward albersUsa > \
+  $OUTPUT_DIR/ne_populated_places_clipped_us_2_albersusa.geojson
+
+cat $INPUT_DIR/ne_populated_places_clipped_us_3.geojson | \
+  dirty-reproject --forward albersUsa > \
+  $OUTPUT_DIR/ne_populated_places_clipped_us_3_albersusa.geojson
+
+cat $INPUT_DIR/ne_populated_places_clipped_us_4.geojson | \
+  dirty-reproject --forward albersUsa > \
+  $OUTPUT_DIR/ne_populated_places_clipped_us_4_albersusa.geojson
+
+cat $INPUT_DIR/azavea_us_states_points.geojson | \
+  dirty-reproject --forward albersUsa > \
+  $OUTPUT_DIR/azavea_us_states_points_albersusa.geojson
+
+cat $INPUT_DIR/trf_cdfi.geojson | \
+  dirty-reproject --forward albersUsa > \
+  $OUTPUT_DIR/trf_cdfi_albersusa.geojson
+
+cat $INPUT_DIR/clst_us_counties_innerlines.geojson | \
+  dirty-reproject --forward albersUsa > \
+  $OUTPUT_DIR/clst_us_counties_innerlines_albersusa.geojson
+
+cat $INPUT_DIR/clst_us_counties_polygons.geojson | \
+  dirty-reproject --forward albersUsa > \
+  $OUTPUT_DIR/clst_us_counties_polygons_albersusa.geojson
+
+cat $INPUT_DIR/azavea_us_outline.geojson | \
+  dirty-reproject --forward albersUsa > \
+  $OUTPUT_DIR/azavea_us_outline_albersusa.geojson
+
+cat $INPUT_DIR/azavea_us_states_innerlines.geojson | \
+  dirty-reproject --forward albersUsa > \
+  $OUTPUT_DIR/azavea_us_states_innerlines_albersusa.geojson
+
+cat $INPUT_DIR/azavea_us_states_polygons.geojson | \
+  dirty-reproject --forward albersUsa > \
+  $OUTPUT_DIR/azavea_us_states_polygons_albersusa.geojson
+
+cat $INPUT_DIR/ne_roads_clipped_us.geojson | \
+  dirty-reproject --forward albersUsa > \
+  $OUTPUT_DIR/ne_roads_clipped_us_albersusa.geojson
+
+cat $INPUT_DIR/ne_urban_areas_clipped_us.geojson | \
+  dirty-reproject --forward albersUsa > \
+  $OUTPUT_DIR/ne_urban_areas_clipped_us_albersusa.geojson
+
+tippecanoe -o $MBTILES_DIR/azavea_us_states_points_albersusa.mbtiles \
+  --no-tile-size-limit \
+  --no-tile-compression \
+  -r1 \
+  --maximum-zoom=8 \
+  --minimum-zoom=2 \
+  $OUTPUT_DIR/azavea_us_states_points_albersusa.geojson
+
+tippecanoe -o $MBTILES_DIR/ne_populated_places_clipped_us_0_albersusa.mbtiles \
+  --no-tile-size-limit \
+  --no-tile-compression \
+  -r1 \
+  --maximum-zoom=8 \
+  --minimum-zoom=3 \
+  $OUTPUT_DIR/ne_populated_places_clipped_us_0_albersusa.geojson
+
+tippecanoe -o $MBTILES_DIR/ne_populated_places_clipped_us_1_albersusa.mbtiles \
+  --no-tile-size-limit \
+  --no-tile-compression \
+  -r1 \
+  --maximum-zoom=8 \
+  --minimum-zoom=4 \
+  $OUTPUT_DIR/ne_populated_places_clipped_us_1_albersusa.geojson
+
+tippecanoe -o $MBTILES_DIR/ne_populated_places_clipped_us_2_albersusa.mbtiles \
+  --no-tile-size-limit \
+  --no-tile-compression \
+  -r1 \
+  --maximum-zoom=8 \
+  --minimum-zoom=6 \
+  $OUTPUT_DIR/ne_populated_places_clipped_us_2_albersusa.geojson
+
+tippecanoe -o $MBTILES_DIR/ne_populated_places_clipped_us_3_albersusa.mbtiles \
+  --no-tile-size-limit \
+  --no-tile-compression \
+  -r1 \
+  --maximum-zoom=8 \
+  --minimum-zoom=7 \
+  $OUTPUT_DIR/ne_populated_places_clipped_us_3_albersusa.geojson
+
+tippecanoe -o $MBTILES_DIR/ne_populated_places_clipped_us_4_albersusa.mbtiles \
+  --no-tile-size-limit \
+  --no-tile-compression \
+  -r1 \
+  --maximum-zoom=8 \
+  --minimum-zoom=8 \
+  $OUTPUT_DIR/ne_populated_places_clipped_us_4_albersusa.geojson
+
+tippecanoe -o $MBTILES_DIR/trf_cdfi_albersusa.mbtiles \
+  --no-tile-size-limit \
+  --no-tile-compression \
+  -r1 \
+  --maximum-zoom=8 \
+  --minimum-zoom=2 \
+  $OUTPUT_DIR/trf_cdfi_albersusa.geojson
+
+tippecanoe -o $MBTILES_DIR/clst_us_counties_innerlines_albersusa.mbtiles \
+  --no-tile-size-limit \
+  --no-tile-compression \
+  --simplification=5 \
+  --maximum-zoom=8 \
+  --minimum-zoom=2 \
+  --simplify-only-low-zooms \
+  $OUTPUT_DIR/clst_us_counties_innerlines_albersusa.geojson
+
+tippecanoe -o $MBTILES_DIR/clst_us_counties_polygons_albersusa.mbtiles \
+  --no-tile-size-limit \
+  --no-tile-compression \
+  --generate-ids \
+  --convert-stringified-ids-to-numbers \
+  --use-attribute-for-id=GEOID \
+  --simplification=1 \
+  --maximum-zoom=8 \
+  --minimum-zoom=2 \
+  --simplify-only-low-zooms \
+  $OUTPUT_DIR/clst_us_counties_polygons_albersusa.geojson
+
+tippecanoe -o $MBTILES_DIR/azavea_us_outline_albersusa.mbtiles \
+  --no-tile-size-limit \
+  --no-tile-compression \
+  --simplification=5 \
+  --maximum-zoom=8 \
+  --minimum-zoom=2 \
+  --simplify-only-low-zooms \
+  $OUTPUT_DIR/azavea_us_outline_albersusa.geojson
+
+tippecanoe -o $MBTILES_DIR/azavea_us_states_innerlines_albersusa.mbtiles \
+  --no-tile-size-limit \
+  --no-tile-compression \
+  --simplification=5 \
+  --maximum-zoom=8 \
+  --minimum-zoom=2 \
+  --simplify-only-low-zooms \
+  $OUTPUT_DIR/azavea_us_states_innerlines_albersusa.geojson
+
+tippecanoe -o $MBTILES_DIR/azavea_us_states_polygons_albersusa.mbtiles \
+  --no-tile-size-limit \
+  --no-tile-compression \
+  --generate-ids \
+  --simplification=5 \
+  --maximum-zoom=8 \
+  --minimum-zoom=2 \
+  --simplify-only-low-zooms \
+  $OUTPUT_DIR/azavea_us_states_polygons_albersusa.geojson
+
+tippecanoe -o $MBTILES_DIR/ne_roads_clipped_us_albersusa.mbtiles \
+  --no-tile-size-limit \
+  --no-tile-compression \
+  --simplification=5 \
+  --maximum-zoom=8 \
+  --minimum-zoom=2 \
+  --simplify-only-low-zooms \
+  $OUTPUT_DIR/ne_roads_clipped_us_albersusa.geojson
+
+tippecanoe -o $MBTILES_DIR/ne_urban_areas_clipped_us_albersusa.mbtiles \
+  --no-tile-size-limit \
+  --no-tile-compression \
+  --simplification=5 \
+  --maximum-zoom=8 \
+  --minimum-zoom=2 \
+  --simplify-only-low-zooms \
+  $OUTPUT_DIR/ne_urban_areas_clipped_us_albersusa.geojson
+
+# Merge multiple mbtiles into one
+tile-join -o $MBTILES_DIR/combined.mbtiles \
+  --no-tile-size-limit \
+  --no-tile-compression \
+  $MBTILES_DIR/azavea_us_states_points_albersusa.mbtiles $MBTILES_DIR/ne_populated_places_clipped_us_0_albersusa.mbtiles $MBTILES_DIR/ne_populated_places_clipped_us_1_albersusa.mbtiles $MBTILES_DIR/ne_populated_places_clipped_us_2_albersusa.mbtiles $MBTILES_DIR/ne_populated_places_clipped_us_3_albersusa.mbtiles $MBTILES_DIR/ne_populated_places_clipped_us_4_albersusa.mbtiles $MBTILES_DIR/clst_us_counties_polygons_albersusa.mbtiles $MBTILES_DIR/clst_us_counties_innerlines_albersusa.mbtiles $MBTILES_DIR/azavea_us_outline_albersusa.mbtiles $MBTILES_DIR/azavea_us_states_innerlines_albersusa.mbtiles $MBTILES_DIR/azavea_us_states_polygons_albersusa.mbtiles $MBTILES_DIR/ne_roads_clipped_us_albersusa.mbtiles $MBTILES_DIR/ne_urban_areas_clipped_us_albersusa.mbtiles $MBTILES_DIR/trf_cdfi_albersusa.mbtiles
+
+mb-util --image_format=pbf $MBTILES_DIR/combined.mbtiles $TILES_DIR

@@ -1,0 +1,34 @@
+{
+	"SFC": {
+		"width": 120,
+		"height": 120,
+		"x": 0,
+		"y": 0,
+		"pixelRatio": 4,
+		"visible": true
+	},
+	"SC": {
+		"width": 120,
+		"height": 120,
+		"x": 120,
+		"y": 0,
+		"pixelRatio": 4,
+		"visible": true
+	},
+	"FC": {
+		"width": 120,
+		"height": 120,
+		"x": 0,
+		"y": 120,
+		"pixelRatio": 4,
+		"visible": true
+	},
+	"SF": {
+		"width": 120,
+		"height": 120,
+		"x": 120,
+		"y": 120,
+		"pixelRatio": 4,
+		"visible": true
+	}
+}
