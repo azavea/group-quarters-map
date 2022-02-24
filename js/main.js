@@ -411,6 +411,8 @@ map.on("style.load", function () {
 
   map.dragRotate.disable();
   map.touchZoomRotate.disableRotation();
+  map.dragPan.enable();
+  map.touchZoomRotate.enable();
 
 });
 
