@@ -1723,18 +1723,30 @@ body.trial #controls .option {
     height: 38px;
   }
   .sidebar-inner {
-    width: 360px;
-    top: 70px;
+    width: auto;
+    padding: 5px 5px 0;
+  }
+  .explore-data {
+    padding-bottom: 0;
   }
   .sidebar-header {
     width: 360px;
     height: 70px;
   }
   #sidebar {
-    width: 360px;
+    height: 180px;
+    bottom: 0;
+    top: auto;
+    width: auto;
+    right: 0;
+    left: 0;
+    background-color: #fff;
+    position: absolute;
   }
+
   #map-container {
-    left: 360px;
+    left: 0px;
+    bottom: 180px;
   }
 }
 
